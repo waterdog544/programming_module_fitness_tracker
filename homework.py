@@ -76,8 +76,9 @@ class Running(Training):
         coef_calorie_1: int = 18
         coef_calorie_2: int = 20
         spent_calories: float = ((coef_calorie_1 * self.get_mean_speed()
-                                 - coef_calorie_2) * self.weight /
-                                 self.M_IN_KM * self.duration * self.H_IN_MIN)
+                                 - coef_calorie_2) * self.weight
+                                 / self.M_IN_KM * self.duration
+                                 * self.H_IN_MIN)
         return spent_calories
 
 
@@ -99,10 +100,10 @@ class SportsWalking(Training):
         coef_cal_1: float = 0.035
         coef_cal_2: int = 2
         coef_cal_3: float = 0.029
-        spent_cal: float = ((coef_cal_1 * self.weight +
-                            (self.get_mean_speed()**coef_cal_2 //
-                             self.height) * coef_cal_3 * self.weight) *
-                            self.duration * self.H_IN_MIN)
+        spent_cal: float = ((coef_cal_1 * self.weight
+                            + (self.get_mean_speed()**coef_cal_2
+                               // self.height) * coef_cal_3 * self.weight)
+                            * self.duration * self.H_IN_MIN)
         return spent_cal
 
 
@@ -145,11 +146,15 @@ class Swimming(Training):
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     # Compration code of workout type and Class
-    workout_type_dict: Dict[str, Union[Running, SportsWalking, Swimming]] = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking
-        }
+    workout_type_dict: Dict[str,
+                            Union[Running,
+                                  SportsWalking,
+                                  Swimming
+                                  ]
+                            ] = {'SWM': Swimming,
+                                 'RUN': Running,
+                                 'WLK': SportsWalking
+                                 }
 
     one: Training = workout_type_dict[workout_type](*data)
     return one
@@ -169,7 +174,6 @@ if __name__ == '__main__':
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
-        ('SWM', [720, 1, 80, 25, 40])
     ]
 
     for workout_type, data in packages:
