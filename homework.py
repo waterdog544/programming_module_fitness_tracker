@@ -1,6 +1,3 @@
-from typing import Dict
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -18,22 +15,16 @@ class InfoMessage:
         self.calories = calories
 
     def get_message(self) -> str:
-        text: str = (f'Тип тренировки: {self.training_type}; '
-                     f'Длительность: {self.duration:.3f} ч.; '
-                     f'Дистанция: {self.distance:.3f} км; '
-                     f'Ср. скорость: {self.speed:.3f} км/ч; '
-                     f'Потрачено ккал: {self.calories:.3f}.')
-        return text
+        return (f'Тип тренировки: {self.training_type}; '
+                f'Длительность: {self.duration:.3f} ч.; '
+                f'Дистанция: {self.distance:.3f} км; '
+                f'Ср. скорость: {self.speed:.3f} км/ч; '
+                f'Потрачено ккал: {self.calories:.3f}.')
 
 
 class Training:
     """Базовый класс тренировки."""
-
-    # type of training
-    # lenght of step
-    # transformation metre in kilometre
-    # transformation hour in minute
-    TRAINING_TYPE: str = ''
+    TRAINING_TYPE = ''
     LEN_STEP = 0.65
     M_IN_KM = 1000
     H_IN_MIN = 60
@@ -139,10 +130,10 @@ class Swimming(Training):
                 * Swimming.COEF_CAL_2 * self.weight)
 
 
-WORKOUT_TYPE_DICT: Dict[str, Training] = {'SWM': Swimming,
-                                          'RUN': Running,
-                                          'WLK': SportsWalking
-                                          }
+WORKOUT_TYPE_DICT = {'SWM': Swimming,
+                     'RUN': Running,
+                     'WLK': SportsWalking
+                     }
 
 
 def read_package(workout_type: str, data: list) -> Training:
@@ -159,7 +150,6 @@ def main(training: Training) -> None:
     print(info.get_message())
 
 
-# test with existent data
 if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
